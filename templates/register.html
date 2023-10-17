@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>Registrieren</title>
+    <style> body { font-family: Arial, sans-serif; background-color: #f0f0f0; }
+        h1 {
+        color: #333333;
+        text-align: center;
+    }
+    
+    p {
+        color: #555555;
+        margin: 10px;
+    }
+    
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        display: inline-block;
+        margin: 10px;
+        border: 1px solid #cccccc;
+        padding: 10px;
+        background-color: #ffffff;
+    }
+    
+    form {
+        display: inline-block;
+        margin: 10px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    input, select, button {
+        padding: 5px;
+        border: 1px solid #cccccc;
+    }
+    
+    button {
+        background-color: #333333;
+        color: #ffffff;
+    }
+    
+    a {
+        color: #333333;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+    </style>
+</head>
+<body>
+    <h1>Registrieren</h1>
+    <p>Zum Registrieren gewünschten Benutzernamen und Passwort eingeben</p>
+    {% if error %}
+    <p style="color:red">{{ error }}</p>
+    {% endif %}
+    {% if success %}
+    <p style="color:green">{{ success }}</p>
+    {% endif %}
+    <form action="/register" method="post">
+        <label for="username">Benutzername:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Passwort:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Registrieren</button>
+    </form>
+
+    <p>Account erstellt? <a href="/login">Hier anmelden.</a></p>
+</body>
+</html>

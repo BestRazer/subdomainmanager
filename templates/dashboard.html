@@ -1,0 +1,121 @@
+<html>
+<head>
+    <title>Dashboard</title>
+    <style> body { font-family: Arial, sans-serif; background-color: #f0f0f0; }
+    h1 {
+    color: #333333;
+    text-align: center;
+}
+
+p {
+    color: #555555;
+    margin: 10px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid #cccccc;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+form {
+    display: inline-block;
+    margin: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select, button {
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+
+button {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+a {
+    color: #333333;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a[target="_blank"]::after {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 3px 0 5px;
+}
+
+.dark-mode {
+            background-color: black;
+            color: white;           
+}
+</style>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <p>Hallo, {{ username }}. Auf diesem Dashboard kannst du deine Subdomains verwalten.</p>
+    <p>Du hast {{ subdomains|length }} Subdomains.</p>
+    <ul>
+    {% for subdomain in subdomains %}
+    <li><a href="http://{{ subdomain }}.bszgrm.de" target="_blank">{{ subdomain }}.bszgrm.de</a>
+        <form action="/ssl/{{ subdomain }}" method="post">
+            <button type="submit">SSL-Zertifikat erstellen</button>
+        </form>
+        <form action="/browse/{{ subdomain }}" method="get">
+            <button type="submit">Dateien</button>
+        </form>  
+        <form action="/delete/{{ subdomain }}" method="post">
+          <button type="submit">Löschen</button>
+        </form>               
+        </li>
+    {% endfor %}
+    </ul>
+    <hr>
+    <h3>Subdomain erstellen</h3>
+    {% if error %}
+    <p style="color:red">{{ error }}</p>
+    {% endif %}
+    {% if success %}
+    <p style="color:green">{{ success }}</p>
+    {% endif %}
+    <form action="/dashboard" method="post">
+        <label for="subdomain">Subdomain:</label>
+        <input type="text" id="subdomain" name="subdomain" required>
+        <button type="submit">Erstellen</button>
+    </form>
+    <hr>
+    <h3>Datei hochladen</h3>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="subdomain">Subdomain:</label>
+        <select id="subdomain" name="subdomain" required>
+        {% for subdomain in subdomains %}
+            <option value="{{ subdomain }}">{{ subdomain }}</option>
+        {% endfor %}
+        </select>
+        <label for="file">Datei:</label>
+        <input type="file" id="file" name="file" required>
+        <button type="submit">Hochladen</button>
+    </form>
+    <hr>
+    <h3>Account Löschen</h3>
+    <p>Achtung: Dies wird auch alle Subdomains löschen.</p>
+    <a href="/delete_account">Löschen</a>
+    <hr>
+    <a href="/logout">Abmelden</a>
+</body>
+</html>
