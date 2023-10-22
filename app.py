@@ -97,6 +97,58 @@ def create_directory(subdomain):
     try:
         # Verzeichnis erstellen
         os.mkdir(path)
+        filename = 'index.html'
+        # Dateipfad zusammenstellen
+        path = '/var/www/subdomainman/' + subdomain + '/' + filename
+        # Inhalt der Datei zusammenstellen
+        content = f'''
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Subdomain erstellt!</title>
+        </head>
+        <body style="font-family: Arial;">
+            <h1>Die Webseite wurde erfolgreich erstellt!</h1>
+            <h2>Gehe nun zurück zum <a href="https://dash.bszgrm.de/dashboard">Subdomain-Manager</a> um eine neue <code>index.html</code> hochzuladen.</h2>
+        </body>
+    </html>
+    '''
+        # Versuchen, die Datei zu erstellen und zu schreiben
+        try:
+            # Datei zum schreiben öffnen
+            with open(path, 'w') as file:
+                # Inhalt der Datei schreiben
+                file.write(content)
+            return True
+        except: 
+            return False
+    except:
+        return False
+
+def create_default_site(subdomain):
+    # Dateinamen zusammenstellen
+    filename = 'index.html'
+    # Dateipfad zusammenstellen
+    path = '/var/www/subdomainman/' + subdomain + '/' + filename
+    # Inhalt der Datei zusammenstellen
+    content = f'''
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Subdomain erstellt></title>
+    </head>
+    <body style="font-family: Arial;">
+        <h1>Die Webseite wurde erfolgreich erstellt!</h1>
+        <h2>Gehe nun zurück zum <a href="https://dash.bszgrm.de/dashboard">Subdomain-Manager</a> um eine neue <code>index.html</code> hochzuladen.</h2>
+    </body>
+</html>
+'''
+    # Versuchen, die Datei zu erstellen und zu schreiben
+    try:
+        # Datei zum schreiben öffnen
+        with open(path, 'w') as file:
+            # Inhalt der Datei schreiben
+            file.write(content)
         return True
     except:
         return False
