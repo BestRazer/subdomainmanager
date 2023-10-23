@@ -112,6 +112,20 @@ a[target="_blank"]::after {
         <button type="submit">Hochladen</button>
     </form>
     <hr>
+    <h3>Bild hochladen</h3>
+    <h4>Dateien, die hier hochgeladen werden, werden in den <code>images</code>-Ordner hochgeladen.</h4>
+    <form action="/upload_image" method="post" enctype="multipart/form-data">
+        <label for="subdomain">Subdomain:</label>
+        <select id="subdomain" name="subdomain" required>
+        {% for subdomain in subdomains %}
+            <option value="{{ subdomain }}">{{ subdomain }}</option>
+        {% endfor %}
+        </select>
+        <label for="file">Datei:</label>
+        <input type="file" id="file" name="file" required>
+        <button type="submit">Hochladen</button>
+    </form>
+    <hr>
     <h3>Account Löschen</h3>
     <p>Achtung: Dies wird auch alle Subdomains löschen.</p>
     <a href="/delete_account">Löschen</a>

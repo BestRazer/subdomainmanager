@@ -167,6 +167,19 @@ def upload_file(subdomain, file):
         print("Hochladen fehlgeschlagen")
         return False
 
+def upload_image(subdomain, file):
+    # Dateipfad zusammenstellen
+    path = '/var/www/subdomainman/' + subdomain + '/images/' + file.filename
+    print("Dateipfad: ", path)
+    try:
+        # Datei speichern
+        file.save(path)
+        print("Datei erfolgreich gespeichert")
+        return True
+    except:
+        print("Hochladen fehlgeschlagen")
+        return False
+
 # Funktion zum Neuladen von Nginx
 def reload_nginx():
     # Befehl festlegen
@@ -370,6 +383,24 @@ def upload():
         file = flask.request.files['file']
         if subdomain in subdomains:
             result = upload_file(subdomain, file)
+            if result:
+                return flask.render_template('dashboard.html', username=username, subdomains=subdomains, success='Die Datei wurde erfolgreich hochgeladen.')
+            else:
+                return flask.render_template('dashboard.html', username=username, subdomains=subdomains, error='Die Datei konnte nicht hochgeladen werden.')
+        else:
+            return flask.render_template('dashboard.html', username=username, subdomains=subdomains, error='Die Subdomain ist ungültig.')
+    else:
+        return flask.redirect('/login')
+@app.route('/upload_image', methods=['POST'])
+def upload_i():
+    if 'user' in flask.session:
+        username = flask.session['user']
+        user = User.query.filter_by(username=username).first()
+        subdomains = user.subdomains.split(',') if user.subdomains else []
+        subdomain = flask.request.form['subdomain']
+        file = flask.request.files['file']
+        if subdomain in subdomains:
+            result = upload_image(subdomain, file)
             if result:
                 return flask.render_template('dashboard.html', username=username, subdomains=subdomains, success='Die Datei wurde erfolgreich hochgeladen.')
             else:
