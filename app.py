@@ -172,7 +172,8 @@ def upload_file(subdomain, file):
 def upload_image(subdomain, file):
     # Dateipfad zusammenstellen
     imagepath = '/var/www/subdomainman/' + subdomain + '/images'
-    os.mkdir(imagepath)
+    if not os.path.isfile:
+        os.mkdir(imagepath)
     path = '/var/www/subdomainman/' + subdomain + '/images/' + file.filename
     print("Dateipfad: ", path)
     try:
