@@ -98,7 +98,7 @@ def create_directory(subdomain):
     try:
         # Verzeichnis erstellen
         os.mkdir(path)
-        os.mkdir(imagepath)
+        
         filename = 'index.html'
         # Dateipfad zusammenstellen
         path = '/var/www/subdomainman/' + subdomain + '/' + filename
@@ -171,6 +171,8 @@ def upload_file(subdomain, file):
 
 def upload_image(subdomain, file):
     # Dateipfad zusammenstellen
+    imagepath = '/var/www/subdomainman/' + subdomain + '/images'
+    os.mkdir(imagepath)
     path = '/var/www/subdomainman/' + subdomain + '/images/' + file.filename
     print("Dateipfad: ", path)
     try:
