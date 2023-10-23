@@ -162,7 +162,7 @@ def upload_file(subdomain, file):
     files = flask.request.files.getlist("file")
     print(files)
     for file in files:
-        # path = path + '/' + file.filename
+        path = '/' + file.filename
         print("Dateipfad: ", path)
         try:
             # Datei speichern
