@@ -167,21 +167,24 @@ def upload_file(subdomain, file):
         print("Hochladen fehlgeschlagen")
         return False
 
-def upload_image(subdomain, file):
+def upload_images(subdomain, files):
     # Dateipfad zusammenstellen
     imagepath = '/var/www/subdomainman/' + subdomain + '/images'
-    if not os.path.isfile:
+    if not os.path.isdir(imagepath):
         os.mkdir(imagepath)
-    path = '/var/www/subdomainman/' + subdomain + '/images/' + file.filename
-    print("Dateipfad: ", path)
-    try:
-        # Datei speichern
-        file.save(path)
-        print("Datei erfolgreich gespeichert")
-        return True
-    except:
-        print("Hochladen fehlgeschlagen")
-        return False
+    # Für jede Datei in der Liste
+    for file in files:
+        path = imagepath + '/' + file.filename
+        print("Dateipfad: ", path)
+        try:
+            # Datei speichern
+            file.save(path)
+            print("Datei erfolgreich gespeichert")
+        except:
+            print("Hochladen fehlgeschlagen")
+            return False
+    return True
+
 
 # Funktion zum Neuladen von Nginx
 def reload_nginx():
