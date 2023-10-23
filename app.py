@@ -173,7 +173,7 @@ def upload_image(subdomain, files):
     if not os.path.isdir(imagepath):
         os.mkdir(imagepath)
     # Für jede Datei in der Liste
-    files = request.files.getlist('files[]') # Eine Liste von Datei-ähnlichen Objekten
+    files = flask.request.files.getlist("file[]")
     for file in files:
         path = imagepath + '/' + file.filename
         print("Dateipfad: ", path)
