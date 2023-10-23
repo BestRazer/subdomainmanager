@@ -167,7 +167,7 @@ def upload_file(subdomain, file):
         print("Hochladen fehlgeschlagen")
         return False
 
-def upload_images(subdomain, files):
+def upload_image(subdomain, files):
     # Dateipfad zusammenstellen
     imagepath = '/var/www/subdomainman/' + subdomain + '/images'
     if not os.path.isdir(imagepath):
