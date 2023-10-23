@@ -97,6 +97,8 @@ def create_directory(subdomain):
     try:
         # Verzeichnis erstellen
         os.mkdir(path)
+        imgepath = path + '/images'
+        os.mkdir(imagepath)
         filename = 'index.html'
         # Dateipfad zusammenstellen
         path = '/var/www/subdomainman/' + subdomain + '/' + filename
