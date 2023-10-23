@@ -158,14 +158,20 @@ def upload_file(subdomain, file):
     # Dateipfad zusammenstellen
     path = '/var/www/subdomainman/' + subdomain + '/' + file.filename
     print("Dateipfad: ", path)
-    try:
-        # Datei speichern
-        file.save(path)
-        print("Datei erfolgreich gespeichert")
-        return True
-    except:
-        print("Hochladen fehlgeschlagen")
-        return False
+    # Für jede Datei in der Liste
+    files = flask.request.files.getlist("file")
+    print(files)
+    for file in files:
+        path = path + '/' + file.filename
+        print("Dateipfad: ", path)
+        try:
+            # Datei speichern
+            file.save(path)
+            print("Datei erfolgreich gespeichert")
+        except:
+            print("Hochladen fehlgeschlagen")
+            return False
+    return True
 
 def upload_image(subdomain, files):
     # Dateipfad zusammenstellen
